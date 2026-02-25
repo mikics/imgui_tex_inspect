@@ -35,7 +35,7 @@ static inline void ClearFlag(TSet &set, TFlag flag)
 template <typename T>
 static inline T Modulus(T a, T b)
 {
-    return a - b * ImFloorSigned(a / b);
+    return a - b * ImFloor(a / b);
 }
 
 // Defined in recent versions of imgui_internal.h.  Included here in case user is on older
@@ -82,7 +82,7 @@ struct Inspector
     bool Initialized = false;
 
     // Texture
-    ImTextureID Texture = ImTextureID{};
+    ImTextureRef Texture = ImTextureRef{};
     ImVec2 TextureSize = {0, 0};        // Size in texels of texture
     float PixelAspectRatio = 1;         // Values other than 1 not supported yet
 
@@ -176,6 +176,6 @@ void PopDisabled();
 // [SECTION] BACKEND FUNCTIONS
 //-------------------------------------------------------------------------
 void BackEnd_SetShader(const ImDrawList *drawList, const ImDrawCmd *cmd, const Inspector *inspector);
-bool BackEnd_GetData(Inspector *inspector, ImTextureID texture, int x, int y, int width, int height, BufferDesc *buffer);
+bool BackEnd_GetData(Inspector *inspector, ImTextureRef texture, int x, int y, int width, int height, BufferDesc *buffer);
 
 } // namespace ImGuiTexInspect

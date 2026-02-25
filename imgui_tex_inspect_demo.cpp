@@ -400,7 +400,7 @@ void DemoInit()
 
     ImGuiIO &io = ImGui::GetIO();
     fontTexture.texture = io.Fonts->TexID;
-    fontTexture.size = ImVec2((float)io.Fonts->TexWidth, (float)io.Fonts->TexHeight);
+    fontTexture.size = ImVec2((float)io.Fonts->TexData->Width, (float)io.Fonts->TexData->Height);
 
     testTex = LoadDemoTexture();
     testInitted = true;

@@ -7,7 +7,7 @@ namespace ImGuiTexInspect
 {
 struct Texture
 {
-    ImTextureID texture;
+    ImTextureRef texture;
     ImVec2 size;
 };
 

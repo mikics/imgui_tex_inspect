@@ -95,7 +95,7 @@ void DestroyContext(Context *ctx)
         GContext = NULL;
     }
 
-    for (ImGuiStorage::ImGuiStoragePair &pair : ctx->Inspectors.Data)
+    for (ImGuiStoragePair &pair : ctx->Inspectors.Data)
     {
         Inspector *inspector = (Inspector *)pair.val_p;
         if (inspector)
@@ -119,7 +119,7 @@ void SetNextPanelFlags(InspectorFlags setFlags, InspectorFlags clearFlags)
     SetFlag(GContext->NextPanelOptions.ToClear, clearFlags);
 }
 
-bool BeginInspectorPanel(const char *title, ImTextureID texture, ImVec2 textureSize, InspectorFlags flags,
+bool BeginInspectorPanel(const char *title, ImTextureRef texture, ImVec2 textureSize, InspectorFlags flags,
                          SizeIncludingBorder sizeIncludingBorder)
 {
     const int borderWidth = 1;
@@ -373,12 +373,12 @@ bool BeginInspectorPanel(const char *title, ImTextureID texture, ImVec2 textureS
     }
 }
 
-bool BeginInspectorPanel(const char *name, ImTextureID texture, ImVec2 textureSize, InspectorFlags flags)
+bool BeginInspectorPanel(const char *name, ImTextureRef texture, ImVec2 textureSize, InspectorFlags flags)
 {
     return BeginInspectorPanel(name, texture, textureSize, flags, SizeIncludingBorder{{0, 0}});
 }
 
-bool BeginInspectorPanel(const char *name, ImTextureID texture, ImVec2 textureSize, InspectorFlags flags, SizeExcludingBorder size)
+bool BeginInspectorPanel(const char *name, ImTextureRef texture, ImVec2 textureSize, InspectorFlags flags, SizeExcludingBorder size)
 {
     // Correct the size to include the border, but preserve 0 which has a special meaning
     return BeginInspectorPanel(name, texture, textureSize, flags,

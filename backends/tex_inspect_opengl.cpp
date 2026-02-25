@@ -279,8 +279,8 @@ static void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int fb_wid
     glEnableVertexAttribArray(g_AttribLocationVtxPos);
     glEnableVertexAttribArray(g_AttribLocationVtxUV);
     //glEnableVertexAttribArray(g_AttribLocationVtxColor); //Our shader doesn't use vertex color
-    glVertexAttribPointer(g_AttribLocationVtxPos,   2, GL_FLOAT,         GL_FALSE, sizeof(ImDrawVert), (GLvoid*)IM_OFFSETOF(ImDrawVert, pos));
-    glVertexAttribPointer(g_AttribLocationVtxUV,    2, GL_FLOAT,         GL_FALSE, sizeof(ImDrawVert), (GLvoid*)IM_OFFSETOF(ImDrawVert, uv));
+    glVertexAttribPointer(g_AttribLocationVtxPos,   2, GL_FLOAT,         GL_FALSE, sizeof(ImDrawVert), (GLvoid*)offsetof(ImDrawVert, pos));
+    glVertexAttribPointer(g_AttribLocationVtxUV,    2, GL_FLOAT,         GL_FALSE, sizeof(ImDrawVert), (GLvoid*)offsetof(ImDrawVert, uv));
     //glVertexAttribPointer(g_AttribLocationVtxColor, 4, GL_UNSIGNED_BYTE, GL_TRUE,  sizeof(ImDrawVert), (GLvoid*)IM_OFFSETOF(ImDrawVert, col));
 }
 
@@ -649,7 +649,7 @@ void BackEnd_SetShader(const ImDrawList *, const ImDrawCmd *, const Inspector *i
         GiveNotInitializedWarning();
     }
 }
-bool BackEnd_GetData(Inspector *inspector, ImTextureID texture, int /*x*/, int /*y*/, int /*width*/, int /*height*/, BufferDesc *bufferDesc)
+bool BackEnd_GetData(Inspector *inspector, ImTextureRef texture, int /*x*/, int /*y*/, int /*width*/, int /*height*/, BufferDesc *bufferDesc)
 {
     // Current simple implementation just gets data for whole texture
 
@@ -663,7 +663,7 @@ bool BackEnd_GetData(Inspector *inspector, ImTextureID texture, int /*x*/, int /
     void * data;
     int texWidth     = (int)inspector->TextureSize.x;
     int texHeight    = (int)inspector->TextureSize.y;
-    GLuint glTexture = (GLuint)(uintptr_t)texture; //Double cast to avoid warning
+    GLuint glTexture = static_cast<GLuint>((uintptr_t)texture.GetTexID()); //Double cast to avoid warning
 
 #ifdef IMGUI_TEX_INSPECT_FLOAT_READ_ENABLED
     size_t bufferSize      = sizeof(float) * texWidth * texHeight * numChannels;

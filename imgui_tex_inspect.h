@@ -55,9 +55,9 @@ struct SizeIncludingBorder {ImVec2 Size; SizeIncludingBorder(ImVec2 size):Size(s
 struct SizeExcludingBorder {ImVec2 size; SizeExcludingBorder(ImVec2 size):size(size){}};
 /* BeginInspectorPanel
  * Returns true if panel is drawn.  Note that flags will only be considered on the first call */
-bool BeginInspectorPanel(const char *name, ImTextureID, ImVec2 textureSize, InspectorFlags flags = 0);
-bool BeginInspectorPanel(const char *name, ImTextureID, ImVec2 textureSize, InspectorFlags flags, SizeIncludingBorder size);
-bool BeginInspectorPanel(const char *name, ImTextureID, ImVec2 textureSize, InspectorFlags flags, SizeExcludingBorder size);
+bool BeginInspectorPanel(const char *name, ImTextureRef, ImVec2 textureSize, InspectorFlags flags = 0);
+bool BeginInspectorPanel(const char *name, ImTextureRef, ImVec2 textureSize, InspectorFlags flags, SizeIncludingBorder size);
+bool BeginInspectorPanel(const char *name, ImTextureRef, ImVec2 textureSize, InspectorFlags flags, SizeExcludingBorder size);
 
 /* EndInspectorPanel 
  * Always call after BeginInspectorPanel and after you have drawn any required annotations*/
