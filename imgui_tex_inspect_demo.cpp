@@ -425,7 +425,7 @@ Texture LoadDemoTexture()
     /* To be a bit forgiving to build different build & test processes we check 
      * a few different paths to find the demo texture.
      */
-    const char *pathsToTry[] = {"demo_1.png", "../demo_1.png", "examples/demo_1.png"};
+    const char *pathsToTry[] = {"demo_1.png", "../assets/images/demo_1.png", "examples/demo_1.png"};
 
     for (int i = 0; i < IM_ARRAYSIZE(pathsToTry); ++i)
     {
