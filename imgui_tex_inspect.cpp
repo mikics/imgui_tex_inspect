@@ -365,6 +365,54 @@ bool BeginInspectorPanel(const char *title, ImTextureRef texture, ImVec2 texture
             SetPanPos(inspector, inspector->PanPos + (mouseUV - inspector->PanPos) * (1 - prevScale / scale));
         }
 
+        if (ImGui::Begin("Inspector Debug", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            ImGui::Text("Inspector ID: 0x%08X", inspector->ID);
+            ImGui::SeparatorText("Dimensions");
+
+            // Size of the texture in pixel (original)
+            ImGui::Text("Texture Size:    %.0f x %.0f", inspector->TextureSize.x, inspector->TextureSize.y);
+
+            // Size of the panel in pixel
+            ImGui::Text("Panel Size:      %.0f x %.0f", inspector->PanelSize.x, inspector->PanelSize.y);
+
+            // Size of the texture in pixel (on the screen)
+            ImGui::Text("View Size (px):  %.0f x %.0f", inspector->ViewSize.x, inspector->ViewSize.y);
+
+            ImGui::SeparatorText("Transformation");
+
+            // Scale factor for the texture
+            ImGui::Text("Scale:           %.3f, %.3f", inspector->Scale.x, inspector->Scale.y);
+
+            // Center of the texture
+            ImGui::Text("PanPos (Center): %.3f, %.3f", inspector->PanPos.x, inspector->PanPos.y);
+
+            ImGui::SeparatorText("UV Coordinates");
+
+            // uv0
+            ImGui::Text("UV0 (Top-Left):  %.4f, %.4f", uv0.x, uv0.y);
+
+            // uv1
+            ImGui::Text("UV1 (Bot-Right): %.4f, %.4f", uv1.x, uv1.y);
+
+            // uv1 - uv0
+            ImGui::Text("ViewSizeUV:      %.4f, %.4f", inspector->ViewSizeUV.x, inspector->ViewSizeUV.y);
+
+            ImGui::SeparatorText("Interaction");
+            ImGui::Text("Is Dragging:     %s", inspector->IsDragging ? "YES" : "NO");
+
+            // Mouse position on the texel
+            ImGui::Text("Mouse Texel:     %.1f, %.1f", mousePosTexel.x, mousePosTexel.y);
+
+            // Mouse position in uv coordinates
+            ImGui::Text("Mouse UV:        %.4f, %.4f", mouseUV.x, mouseUV.y);
+
+            if (ImGui::Button("Reset View")) {
+                inspector->Scale = ImVec2(1, 1);
+                inspector->PanPos = ImVec2(0.5f, 0.5f);
+            }
+        }
+        ImGui::End();
         return true;
     }
     else
